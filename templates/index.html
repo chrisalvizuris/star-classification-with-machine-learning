@@ -1,21 +1,21 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>Star Classification</title>
+    <title>Star Classification Using Machine Learning</title>
+
   </head>
   <body>
 
-  <!-- Begin Navbar -->
+
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Star Type Prediction</a>
+    <a class="navbar-brand" href="/">Star Type Prediction</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -32,18 +32,117 @@
   </div>
 </nav>
 
-    <div class="container">
-        <h1>Hello, world!</h1>
-    </div>
-    <!-- Optional JavaScript; choose one of the two! -->
+  <div class="container">
+      <h1>Star Predictions Using Machine Learning</h1>
+  </div>
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
+  <div class="container">
+      <p>We understand that labeling star types can be a long, tedious, heart-breaking process. Our goal is to make your life easier by automating this process. We're using a RandomForestClassifier machine learning model to predict start type based on a variety of features. Below, you'll find more information about the features we're using:</p>
+
+      <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Features</th>
+                <th scope="col">Descriptions</th>
+                <th scope="col">Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">Temperature</th>
+                <td>Temperature measure in K</td>
+                <td>2000K to 35000K</td>
+            </tr>
+            <tr>
+                <th scope="row">Luminosity</th>
+                <td>Average luminosity of star's sun</td>
+                <td>0.0001w to 300000w</td>
+            </tr>
+            <tr>
+                <th scope="row">Radius</th>
+                <td>Average radius of star's sun</td>
+                <td>0.01m to 6000m</td>
+            </tr>
+            <tr>
+                <th scope="row">Absolute Magnitude</th>
+                <td>The star's absolute magnitude</td>
+                <td>-100 to 100</td>
+            </tr>
+            <tr>
+                <th scope="row">Spectral Class</th>
+                <td>Classification from asteroid spectral class. </td>
+                <td>O, B, A, F, G, K, M</td>
+            </tr>
+        </tbody>
+      </table>
+      <p>With these features, we'll be able to accurately predict if a star is a <strong>Red Dwarf, Brown Dwarf, White Dwarf, Main Sequence, Super Giant, or Hyper Giant</strong></p>
+
+  </div>
+  <div class="container">
+      <h2>Fill Out Information Below To Begin Your Star Type Prediction</h2>
+
+      <form>
+        <div class="form-group">
+          <!--Temperature Range -->
+          <label for="customRange2" class="form-label" style="font-weight: bold">Star's Temperature (K)</label>
+            <input type="range" name="temp_range" class="form-range" id="formControlRange" onInput="$('#tempRangeVal').html($(this).val())" min="2000" max="50000">
+            <span id="tempRangeVal">5000<!-- Default value --></span>
+        </div>
+      </form>
+      <form>
+          <div class="form-group">
+              <label for="luminosityRange" class="form-label" style="font-weight: bold">Average Luminosity of Sun (watts)</label>
+              <input type="range" class="form-range" id="luminosityRange" onInput="$('#lumosRangeVal').html($(this).val())" min="0.0001" max="900000">
+              <span id="lumosRangeVal">2<!-- Default value --></span>
+          </div>
+      </form>
+      <form>
+          <div class="form-group">
+              <label for="radiusRange" class="form-label" style="font-weight: bold">Average Radius of Sun (m)</label>
+              <input type="range" class="form-range" id="radiusRange" onInput="$('#radiusRangeVal').html($(this).val())" min="0" max="2000">
+              <span id="radiusRangeVal">500<!-- Default value --></span>
+          </div>
+      </form>
+      <form>
+          <div class="form-group">
+              <label for="absolutMagnitudeRange" class="form-label" style="font-weight: bold">Star's Absolute Magnitude</label>
+              <input type="range" class="form-range" id="absoluteMagnitudeRange" onInput="$('#amRangeVal').html($(this).val())" min="-20" max="20">
+              <span id="amRangeVal">0<!-- Default value --></span>
+          </div>
+      </form>
+      <form>
+          <select class="form-select" aria-label="Default select example" style="font-weight: bold">
+              <option selected>Select a Spectral Class</option>
+              <option value="1">O</option>
+              <option value="2">B</option>
+              <option value="3">A</option>
+              <option value="4">F</option>
+              <option value="5">G</option>
+              <option value="6">K</option>
+              <option value="7">M</option>
+          </select>
+      </form>
+      <div class="d-grid gap-2 col-6 mx-auto">
+          <button type="button" class="btn btn-outline-info">Submit</button>
+      </div>
+{#      <div class="mb-3">#}
+{#        <label for="formGroupExampleInput" class="form-label" style="font-weight: bold" style="padding-bottom: 25px">Luminosity in Watts</label>#}
+{#        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Range: 0.0001 to 900000 watts">#}
+{#      </div>#}
+{#      <div class="mb-3">#}
+{#        <label for="formGroupExampleInput2" class="form-label" style="font-weight: bold" style="padding-bottom: 25px">Radius</label>#}
+{#        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Range: 0 to 2000m">#}
+{#      </div>#}
+{#      <div class="mb-3">#}
+{#        <label for="formGroupExampleInput2" class="form-label" style="font-weight: bold" style="padding-bottom: 25px">Absolute Magnitude</label>#}
+{#        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Range: -20 to 20">#}
+{#      </div>#}
+  </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    -->
   </body>
 </html>
