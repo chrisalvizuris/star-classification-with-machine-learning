@@ -15,22 +15,58 @@ def index():
     if request_type_str == 'GET':
         return render_template("index.html")
     else:
+        empty_list = []
         temperature = request.form['temp_range']
         luminosity = request.form['lumos_range']
         radius = request.form['radius_range']
         am = request.form['am_range']
         spectral = request.form['spectral_class']
 
-        features_array = [temperature, luminosity, radius, am, spectral]
-        return render_template("prediction-result.html", prediction=features_array)
+        str_to_int(convert_spectral_to_str_floats(spectral), empty_list)
+        empty_list.append(float(temperature))
+        empty_list.append(float(luminosity))
+        empty_list.append(float(radius))
+        empty_list.append(float(am))
+
+        prediction_array = np.array([empty_list])
+        print(prediction_array)
+        model = load('model.joblib')
+        preds = model.predict(prediction_array)
+        preds_as_str = str(preds)
+
+        return render_template("prediction-result.html", prediction=preds_as_str)
 
 
-    # sample_input = np.array([[0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 29560.0, 188000.000000, 6.0200, -4.010]])
-    # model = load('model.joblib')
-    # preds = model.predict(sample_input)
-    # preds_as_str = str(preds)
-    # return preds_as_str
+def convert_spectral_to_str_floats(input):
+    if input == 'A':
+        output = "1.0 0.0 0.0 0.0 0.0 0.0 0.0"
+        return output
+    elif input == 'B':
+        output = "0.0 1.0 0.0 0.0 0.0 0.0 0.0"
+        return output
+    elif input == 'F':
+        output = "0.0 0.0 1.0 0.0 0.0 0.0 0.0"
+        return output
+    elif input == 'G':
+        output = "0.0 0.0 0.0 1.0 0.0 0.0 0.0"
+        return output
+    elif input == 'K':
+        output = "0.0 0.0 0.0 0.0 1.0 0.0 0.0"
+        return output
+    elif input == 'M':
+        output = "0.0 0.0 0.0 0.0 0.0 1.0 0.0"
+        return output
+    elif input == 'O':
+        output = "0.0 0.0 0.0 0.0 0.0 0.0 1.0"
+        return output
 
+
+def str_to_int(input, emptylist):
+    int_string = input
+    newlist = [float(i) for i in int_string.split(' ')]
+    for j in newlist:
+        emptylist.append(j)
+    return emptylist
 
 
 @app.route('/data-visualization')
