@@ -13,7 +13,7 @@
   <body>
 
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">Star Type Prediction</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,7 +37,7 @@
   </div>
 
   <div class="container">
-      <p>We understand that labeling star types can be a long, tedious, heart-breaking process. Our goal is to make your life easier by automating this process. We're using a RandomForestClassifier machine learning model to predict start type based on a variety of features. Below, you'll find more information about the features we're using:</p>
+      <p>We understand that labeling star types can be a long, tedious, heart-breaking process. Our goal is to make your life easier by automating this process. We're using a RandomForestClassifier machine learning model to predict start types based on a variety of features. Below, you'll find more information about the features we're using:</p>
 
       <table class="table">
         <thead>
@@ -81,36 +81,36 @@
   <div class="container">
       <h2>Fill Out Information Below To Begin Your Star Type Prediction</h2>
 
-      <form>
+      <form class="row g-5">
         <div class="form-group">
           <!--Temperature Range -->
           <label for="customRange2" class="form-label" style="font-weight: bold">Star's Temperature (K)</label>
             <input type="range" name="temp_range" class="form-range" id="formControlRange" onInput="$('#tempRangeVal').html($(this).val())" min="2000" max="50000">
             <span id="tempRangeVal">5000<!-- Default value --></span>
         </div>
-      </form>
-      <form>
+{#      </form>#}
+{#      <form>#}
           <div class="form-group">
               <label for="luminosityRange" class="form-label" style="font-weight: bold">Average Luminosity of Sun (watts)</label>
               <input type="range" class="form-range" id="luminosityRange" onInput="$('#lumosRangeVal').html($(this).val())" min="0.0001" max="900000">
               <span id="lumosRangeVal">2<!-- Default value --></span>
           </div>
-      </form>
-      <form>
+{#      </form>#}
+{#      <form>#}
           <div class="form-group">
               <label for="radiusRange" class="form-label" style="font-weight: bold">Average Radius of Sun (m)</label>
               <input type="range" class="form-range" id="radiusRange" onInput="$('#radiusRangeVal').html($(this).val())" min="0" max="2000">
               <span id="radiusRangeVal">500<!-- Default value --></span>
           </div>
-      </form>
-      <form>
+{#      </form>#}
+{#      <form>#}
           <div class="form-group">
               <label for="absolutMagnitudeRange" class="form-label" style="font-weight: bold">Star's Absolute Magnitude</label>
               <input type="range" class="form-range" id="absoluteMagnitudeRange" onInput="$('#amRangeVal').html($(this).val())" min="-20" max="20">
               <span id="amRangeVal">0<!-- Default value --></span>
           </div>
-      </form>
-      <form>
+{#      </form>#}
+{#      <form>#}
           <select class="form-select" aria-label="Default select example" style="font-weight: bold">
               <option selected>Select a Spectral Class</option>
               <option value="1">O</option>
@@ -121,10 +121,13 @@
               <option value="6">K</option>
               <option value="7">M</option>
           </select>
+          <div class="d-grid gap-2 col-6 mx-auto">
+              <button type="button" class="btn btn-outline-info">Submit</button>
+          </div>
       </form>
-      <div class="d-grid gap-2 col-6 mx-auto">
-          <button type="button" class="btn btn-outline-info">Submit</button>
-      </div>
+{#      <div class="d-grid gap-2 col-6 mx-auto">#}
+{#          <button type="button" class="btn btn-outline-info">Submit</button>#}
+{#      </div>#}
 {#      <div class="mb-3">#}
 {#        <label for="formGroupExampleInput" class="form-label" style="font-weight: bold" style="padding-bottom: 25px">Luminosity in Watts</label>#}
 {#        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Range: 0.0001 to 900000 watts">#}
