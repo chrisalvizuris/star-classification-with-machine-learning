@@ -81,65 +81,46 @@
   <div class="container">
       <h2>Fill Out Information Below To Begin Your Star Type Prediction</h2>
 
-      <form class="row g-5">
+      <form class="row g-5" method="post">
         <div class="form-group">
-          <!--Temperature Range -->
+
           <label for="customRange2" class="form-label" style="font-weight: bold">Star's Temperature (K)</label>
             <input type="range" name="temp_range" class="form-range" id="formControlRange" onInput="$('#tempRangeVal').html($(this).val())" min="2000" max="50000">
             <span id="tempRangeVal">5000<!-- Default value --></span>
         </div>
-{#      </form>#}
-{#      <form>#}
+
           <div class="form-group">
               <label for="luminosityRange" class="form-label" style="font-weight: bold">Average Luminosity of Sun (watts)</label>
-              <input type="range" class="form-range" id="luminosityRange" onInput="$('#lumosRangeVal').html($(this).val())" min="0.0001" max="900000">
+              <input type="range" class="form-range" name="lumos_range" id="luminosityRange" onInput="$('#lumosRangeVal').html($(this).val())" min="0.0001" max="900000">
               <span id="lumosRangeVal">2<!-- Default value --></span>
           </div>
-{#      </form>#}
-{#      <form>#}
+
           <div class="form-group">
               <label for="radiusRange" class="form-label" style="font-weight: bold">Average Radius of Sun (m)</label>
-              <input type="range" class="form-range" id="radiusRange" onInput="$('#radiusRangeVal').html($(this).val())" min="0" max="2000">
+              <input type="range" class="form-range" name="radius_range" id="radiusRange" onInput="$('#radiusRangeVal').html($(this).val())" min="0" max="2000">
               <span id="radiusRangeVal">500<!-- Default value --></span>
           </div>
-{#      </form>#}
-{#      <form>#}
+
           <div class="form-group">
               <label for="absolutMagnitudeRange" class="form-label" style="font-weight: bold">Star's Absolute Magnitude</label>
-              <input type="range" class="form-range" id="absoluteMagnitudeRange" onInput="$('#amRangeVal').html($(this).val())" min="-20" max="20">
+              <input type="range" class="form-range" name="am_range" id="absoluteMagnitudeRange" onInput="$('#amRangeVal').html($(this).val())" min="-20" max="20">
               <span id="amRangeVal">0<!-- Default value --></span>
           </div>
-{#      </form>#}
-{#      <form>#}
-          <select class="form-select" aria-label="Default select example" style="font-weight: bold">
-              <option selected>Select a Spectral Class</option>
-              <option value="1">O</option>
-              <option value="2">B</option>
-              <option value="3">A</option>
-              <option value="4">F</option>
-              <option value="5">G</option>
-              <option value="6">K</option>
-              <option value="7">M</option>
+          <label for="spectral_class" style="font-weight: bold">Select a Spectral Class from the Drop Down Menu:</label>
+          <select id="spectral_class" class="form-select" aria-label="Default select example" name="spectral_class" style="margin-top: 10px">
+              <option selected>M</option>
+              <option value="O">O</option>
+              <option value="B">B</option>
+              <option value="A">A</option>
+              <option value="F">F</option>
+              <option value="G">G</option>
+              <option value="K">K</option>
           </select>
           <div class="d-grid gap-2 col-6 mx-auto">
-              <button type="button" class="btn btn-outline-info">Submit</button>
+              <input type="submit" class="btn btn-outline-info">
           </div>
       </form>
-{#      <div class="d-grid gap-2 col-6 mx-auto">#}
-{#          <button type="button" class="btn btn-outline-info">Submit</button>#}
-{#      </div>#}
-{#      <div class="mb-3">#}
-{#        <label for="formGroupExampleInput" class="form-label" style="font-weight: bold" style="padding-bottom: 25px">Luminosity in Watts</label>#}
-{#        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Range: 0.0001 to 900000 watts">#}
-{#      </div>#}
-{#      <div class="mb-3">#}
-{#        <label for="formGroupExampleInput2" class="form-label" style="font-weight: bold" style="padding-bottom: 25px">Radius</label>#}
-{#        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Range: 0 to 2000m">#}
-{#      </div>#}
-{#      <div class="mb-3">#}
-{#        <label for="formGroupExampleInput2" class="form-label" style="font-weight: bold" style="padding-bottom: 25px">Absolute Magnitude</label>#}
-{#        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Range: -20 to 20">#}
-{#      </div>#}
+
   </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
