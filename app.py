@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
 import pandas as pd
 import numpy as np
+import plotly.express as px
+import plotly.graph_objects as go
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
@@ -71,6 +73,19 @@ def str_to_int(input, emptylist):
 
 @app.route('/data-visualization')
 def data_visualization():
+    # star_type = pd.read_csv("static/stars-shuffled.csv")
+    # radius = star_type["R"]
+    # class_type = star_type["Type"]
+    # a_m = star_type["A_M"]
+    # lumos = star_type["L"]
+    #
+    # fig = px.scatter(star_type, x="A_M", y="L",
+    #                  title="Relationship Between Avg Luminosity of Sun vs Absolute Magnitude",
+    #                  color="Type",
+    #                  labels={'A_M': 'Absolute Magnitude',
+    #                          'L': 'Avg Luminosity of Sun',
+    #                          'Type': 'Star Type'})
+    # fig.show()
     return render_template("data-visualization.html")
 
 
