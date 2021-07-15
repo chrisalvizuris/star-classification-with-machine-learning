@@ -46,6 +46,36 @@
         <iframe width="95%" height="500" frameborder="0" scrolling="no" src="//plotly.com/~chrisalvizuris/6.embed"></iframe>
     </div>
 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.js"></script>
+
+    <div class="container">
+        <h2>Raw Data from Stars Dataset</h2>
+        <p>Below, you'll find the raw data that was used to train the machine learning model:</p>
+    </div>
+    <script>
+        function arrayToTable(tableData) {
+            var table = $('<table class="table"></table>');
+            $(tableData).each(function (i, rowData) {
+                var row = $('<tr></tr>');
+                $(rowData).each(function (j, cellData) {
+                    row.append($('<td>'+cellData+'</td>'));
+                });
+                table.append(row);
+            });
+            return table;
+        }
+
+        $.ajax({
+            type: "GET",
+            url: "static/stars-shuffled.csv",
+            success: function (data) {
+                $('body').append(arrayToTable(Papa.parse(data).data));
+            }
+        });
+    </script>
+
+
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
