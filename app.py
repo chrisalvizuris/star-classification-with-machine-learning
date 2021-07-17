@@ -21,7 +21,7 @@ def index():
         # Create empty list that will be used to add in user's input
         # Begin taking in user's input
         empty_list = []
-        original_list = []
+        # original_list = []
         temperature = request.form['temp_range']
         luminosity = request.form['lumos_range']
         radius = request.form['radius_range']
@@ -41,41 +41,42 @@ def index():
         model = load('model.joblib')
         preds = model.predict(prediction_array)
         preds_as_str = str(preds)
-
-        original_list.append(int(temperature))
-        original_list.append(float(luminosity))
-        original_list.append(float(radius))
-        original_list.append(float(am))
-        original_list.append("Red")
-        original_list.append(spectral)
-        original_list.append(int(preds))
-        with open('static/stars-shuffled.csv', 'a') as f_object:
-            writer_object = writer(f_object)
-            writer_object.writerow(original_list)
-            f_object.close()
+        #
+        # original_list.append(int(temperature))
+        # original_list.append(float(luminosity))
+        # original_list.append(float(radius))
+        # original_list.append(float(am))
+        # original_list.append("Red")
+        # original_list.append(spectral)
+        # original_list.append(int(preds))
+        # with open('static/stars-shuffled.csv', 'a') as f_object:
+        #     writer_object = writer(f_object)
+        #     writer_object.writerow(original_list)
+        #     f_object.close()
 
         stars = pd.read_csv('static/stars-shuffled.csv')
-        x_no_color = stars.drop("Color", axis=1)
-        x = x_no_color.drop("Type", axis=1)
-        y = stars["Type"]
+        x = stars.drop(['Color', 'Spectral_Class', 'Type'], axis=1)
+        y = stars['Type']
 
-        categorical_features = ["Spectral_Class"]
-        one_hot = OneHotEncoder()
-        transformer = ColumnTransformer([("one_hot",
-                                          one_hot,
-                                          categorical_features)],
-                                        remainder="passthrough")
-
-        transformed_features = transformer.fit_transform(x)
-
-
-        features_train, features_test, target_train, target_test = train_test_split(transformed_features,
+        # categorical_features = ["Spectral_Class"]
+        # one_hot = OneHotEncoder()
+        # transformer = ColumnTransformer([("one_hot",
+        #                                   one_hot,
+        #                                   categorical_features)],
+        #                                 remainder="passthrough")
+        #
+        # transformed_features = transformer.fit_transform(x)
+        #
+        # features_train, features_test, target_train, target_test = train_test_split(transformed_features,
+        #                                                                             y,
+        #                                                                             test_size=0.2)
+        features_train, features_test, target_train, target_test = train_test_split(x,
                                                                                     y,
                                                                                     test_size=0.2)
 
         model2 = RandomForestClassifier()
         model2.fit(features_train, target_train)
-        cvs = cross_val_score(model2, transformed_features, y)
+        cvs = cross_val_score(model2, x, y)
         cvs_as_str = str(cvs)
         return render_template("prediction-result.html", prediction=preds_as_str, accuracy=cvs_as_str)
 
