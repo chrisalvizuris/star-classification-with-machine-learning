@@ -1,18 +1,46 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import pandas as pd
 import numpy as np
-from csv import writer
+from csv import DictReader
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split, cross_val_score
-from sklearn.metrics import accuracy_score
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.compose import ColumnTransformer
 from joblib import load
 
 app = Flask(__name__)
 
 
 @app.route('/', methods=['GET', 'POST'])
+def login():
+    request_type_str = request.method
+    if request_type_str == 'GET':
+        return render_template("login.html")
+    else:
+        email = request.form['email-input']
+        password = request.form['password-input']
+        with open('static/login-info.csv', 'r') as read_obj:
+            csv_dict_reader = DictReader(read_obj)
+            for row in csv_dict_reader:
+                if email == row['Email'] and password == row['Password']:
+                    return redirect(url_for('index'))
+            return redirect(url_for('invalid_login'))
+
+@app.route('/invalid-login', methods=['GET', 'POST'])
+def invalid_login():
+    request_type_str = request.method
+    if request_type_str == 'GET':
+        return render_template("login.html", validation='Email or password not found. Try again.')
+    else:
+        email = request.form['email-input']
+        password = request.form['password-input']
+        with open('static/login-info.csv', 'r') as read_obj:
+            csv_dict_reader = DictReader(read_obj)
+            for row in csv_dict_reader:
+                if email == row['Email'] and password == row['Password']:
+                    return redirect(url_for('index'))
+            return redirect(url_for('invalid_login'))
+
+
+@app.route('/begin-prediction', methods=['GET', 'POST'])
 def index():
     request_type_str = request.method
     if request_type_str == 'GET':
@@ -21,7 +49,6 @@ def index():
         # Create empty list that will be used to add in user's input
         # Begin taking in user's input
         empty_list = []
-        # original_list = []
         temperature = request.form['temp_range']
         luminosity = request.form['lumos_range']
         radius = request.form['radius_range']
@@ -41,35 +68,10 @@ def index():
         model = load('model.joblib')
         preds = model.predict(prediction_array)
         preds_as_str = str(preds)
-        #
-        # original_list.append(int(temperature))
-        # original_list.append(float(luminosity))
-        # original_list.append(float(radius))
-        # original_list.append(float(am))
-        # original_list.append("Red")
-        # original_list.append(spectral)
-        # original_list.append(int(preds))
-        # with open('static/stars-shuffled.csv', 'a') as f_object:
-        #     writer_object = writer(f_object)
-        #     writer_object.writerow(original_list)
-        #     f_object.close()
 
         stars = pd.read_csv('static/stars-shuffled.csv')
         x = stars.drop(['Color', 'Spectral_Class', 'Type'], axis=1)
         y = stars['Type']
-
-        # categorical_features = ["Spectral_Class"]
-        # one_hot = OneHotEncoder()
-        # transformer = ColumnTransformer([("one_hot",
-        #                                   one_hot,
-        #                                   categorical_features)],
-        #                                 remainder="passthrough")
-        #
-        # transformed_features = transformer.fit_transform(x)
-        #
-        # features_train, features_test, target_train, target_test = train_test_split(transformed_features,
-        #                                                                             y,
-        #                                                                             test_size=0.2)
         features_train, features_test, target_train, target_test = train_test_split(x,
                                                                                     y,
                                                                                     test_size=0.2)
