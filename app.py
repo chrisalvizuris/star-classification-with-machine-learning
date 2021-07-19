@@ -79,8 +79,11 @@ def index():
         model2 = RandomForestClassifier()
         model2.fit(features_train, target_train)
         cvs = cross_val_score(model2, x, y)
+        minimum = min(cvs)
+        min_as_percent = float(minimum) * 100.0000
+        min_as_str = str(min_as_percent)
         cvs_as_str = str(cvs)
-        return render_template("prediction-result.html", prediction=preds_as_str, accuracy=cvs_as_str)
+        return render_template("prediction-result.html", prediction=preds_as_str, accuracy=min_as_str)
 
 
 def convert_spectral_to_str_floats(input):
