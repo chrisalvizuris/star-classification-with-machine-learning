@@ -32,7 +32,7 @@
 </nav>
 
     <div class="container">
-        <h1>Here are some Data Visualizations</h1>
+        <h1>Here Are Some Data Visualizations From Our Dataset</h1>
     </div>
 
     <div class="container">
@@ -50,33 +50,119 @@
 
     <div class="container">
         <h2>Raw Data from Stars Dataset</h2>
-        <p>Below, you'll find the raw data that was used to train the machine learning model:</p>
+        <p>Below, you'll find a sample of the raw data that was used to train the machine learning model:</p>
     </div>
-    <script>
-        function arrayToTable(tableData) {
-            var table = $('<table class="table"></table>');
-            $(tableData).each(function (i, rowData) {
-                var row = $('<tr></tr>');
-                $(rowData).each(function (j, cellData) {
-                    row.append($('<td>'+cellData+'</td>'));
-                });
-                table.append(row);
-            });
-            return table;
-        }
-
-        $.ajax({
-            type: "GET",
-            url: "static/stars-shuffled.csv",
-            success: function (data) {
-                $('body').append(arrayToTable(Papa.parse(data).data));
-            }
-        });
-    </script>
-
-
-    <!-- Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <div class="container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Temperature</th>
+              <th scope="col">Luminosity</th>
+              <th scope="col">Radius</th>
+              <th scope="col">Absolute Magnitutde</th>
+              <th scope="col">Color</th>
+              <th scope="col">Spectral Class</th>
+              <th scope="col">Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>8250</td>
+              <td>9.25</td>
+              <td>1.93</td>
+              <td>-0.98</td>
+              <td>yellow-white</td>
+              <td>F</td>
+              <td>3</td>
+            </tr>
+            <tr>
+              <td>3834</td>
+              <td>272000</td>
+              <td>1183</td>
+              <td>-9.2</td>
+              <td>Red</td>
+              <td>M</td>
+              <td>5</td>
+            </tr>
+            <tr>
+              <td>3453</td>
+              <td>0.000621</td>
+              <td>0.0773</td>
+              <td>17.08</td>
+              <td>Red</td>
+              <td>M</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>3345</td>
+              <td>0.021</td>
+              <td>0.273</td>
+              <td>12.3</td>
+              <td>Red</td>
+              <td>M</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>17383</td>
+              <td>342900</td>
+              <td>30</td>
+              <td>-6.09</td>
+              <td>Blue</td>
+              <td>O</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <td>18000</td>
+              <td>200000</td>
+              <td>1045</td>
+              <td>-8.3</td>
+              <td>Blue</td>
+              <td>O</td>
+              <td>5</td>
+            </tr>
+            <tr>
+              <td>25390</td>
+              <td>223000</td>
+              <td>57</td>
+              <td>-5.92</td>
+              <td>Blue</td>
+              <td>O</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <td>2778</td>
+              <td>0.000849</td>
+              <td>0.112</td>
+              <td>19.45</td>
+              <td>Red</td>
+              <td>M</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>2637</td>
+              <td>0.00073</td>
+              <td>0.127</td>
+              <td>17.22</td>
+              <td>Red</td>
+              <td>M</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>9700</td>
+              <td>74</td>
+              <td>2.89</td>
+              <td>0.16</td>
+              <td>Whitish</td>
+              <td>B</td>
+              <td>3</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+    <div class="container">
+        <p style="padding-bottom: 30px">If you'd like to view the full dataset, you can find it at <a href="https://www.kaggle.com/brsdincer/star-type-classification">Kaggle.</a></p>
+    </div>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
   </body>
 </html>
