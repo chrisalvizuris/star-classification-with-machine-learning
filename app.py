@@ -16,7 +16,7 @@ def login():
 
     :return: Template for the login page if the user is barely landing on the page.
     Else, get the email and password they entered and validate that its in login-info.csv.
-    Invalid entries redirect users to the invalid login page.
+    Invalid entries redirect users to invalid login page.
     """
     request_type_str = request.method
     if request_type_str == 'GET':
